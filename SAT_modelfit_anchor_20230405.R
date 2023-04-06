@@ -18,10 +18,10 @@ nll_oa_default_0cost <- read.csv('Results_inference_group_NLL_0cost_1000steps-lr
 elbo_ya_default_0cost <- read.csv('Results_inference_group_NLL_0cost_1000steps-lr0-02_20220629/ELBO_ya_group_0cost.csv')
 elbo_oa_default_0cost <- read.csv('Results_inference_group_NLL_0cost_1000steps-lr0-02_20220629/ELBO_oa_group_0cost.csv')
 
-nll_ya_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20220706/NLL_ya_group_discount_Noise_theta_0cost.csv')
-nll_oa_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20220706/NLL_oa_group_discount_Noise_theta_0cost.csv')
-elbo_ya_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20220706/ELBO_ya_group_discount_Noise_theta_0cost.csv')
-elbo_oa_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20220706/ELBO_oa_group_discount_Noise_theta_0cost.csv')
+nll_ya_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20230111/NLL_ya_group_discount_Noise_theta_0cost.csv')
+nll_oa_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20230111/NLL_oa_group_discount_Noise_theta_0cost.csv')
+elbo_ya_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20230111/ELBO_ya_group_discount_Noise_theta_0cost.csv')
+elbo_oa_noisedisc_0cost_theta <- read.csv('Results_inference_group_discount_Noise_theta_0cost_20230111/ELBO_oa_group_discount_Noise_theta_0cost.csv')
 
 nll_ya_hilonoisedisc_0cost_theta <- read.csv('Results_inference_group_discount_hiLoNoise_theta_0cost_20220706/NLL_ya_group_discount_hiLoNoise_theta_0cost.csv')
 nll_oa_hilonoisedisc_0cost_theta <- read.csv('Results_inference_group_discount_hiLoNoise_theta_0cost_20220706/NLL_oa_group_discount_hiLoNoise_theta_0cost.csv')
@@ -190,11 +190,22 @@ df_elbo_comp_zerocost_5models <- rbind(elbo_yaoa_hilonoisedisc_0cost_theta,
                                        df_elbo_noisedisc_theta_ignoreHinoise)
 
 
-nll_yaoa_default_0cost <- rbind(nll_ya_default_0cost, nll_oa_default_0cost)
+nll_yaoa_default_0cost <- rbind(nll_ya_default_0cost, nll_oa_default_0cost) # BIC correctly computed for 3 parameters (beta, theta, alpha)
 nll_yaoa_noisedisc_0cost_theta <- rbind(nll_ya_noisedisc_0cost_theta, nll_oa_noisedisc_0cost_theta)
 nll_yaoa_hilonoisedisc_0cost_theta <- rbind(nll_ya_hilonoisedisc_0cost_theta, nll_oa_hilonoisedisc_0cost_theta)
-nll_yaoa_nolearning_0cost <- rbind(nll_ya_nolearning_0cost, nll_oa_nolearning_0cost)
+nll_yaoa_nolearning_0cost <- rbind(nll_ya_nolearning_0cost, nll_oa_nolearning_0cost)# BIC correctly computed for 2 parameters (beta, theta)
 nll_yaoa_noisedisc_theta_ignoreHinoise <- rbind(nll_ya_noisedisc_theta_ignoreHinoise, nll_oa_noisedisc_theta_ignoreHinoise)
+
+nll_yaoa_noisedisc_0cost_theta$BIC_120_mean         <- nll_yaoa_noisedisc_0cost_theta$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_noisedisc_0cost_theta$BIC_hinoise_120_mean <- nll_yaoa_noisedisc_0cost_theta$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_noisedisc_0cost_theta$BIC_lonoise_120_mean <- nll_yaoa_noisedisc_0cost_theta$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_hilonoisedisc_0cost_theta$BIC_120_mean         <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_hilonoisedisc_0cost_theta$BIC_hinoise_120_mean <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_hilonoisedisc_0cost_theta$BIC_lonoise_120_mean <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_120_mean         <- nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_hinoise_120_mean <- nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_lonoise_120_mean <- nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+
 
 nll_yaoa_default_0cost$subjIDs <- NULL
 nll_yaoa_noisedisc_0cost_theta$subjIDs <- NULL
@@ -312,7 +323,9 @@ plot(gp_modelcomp_nll)
 imageFile <- file.path(imageDirectory,"model_comparison_NLL_zerocost_YAOA_top3_col.png")
 ggsave(imageFile)
 
-
+# Caution - Currently, in the "ignore high noise" model, all miniblocks are declared as "low noise"!
+# Therefore, the variable nll_1staction_lonoise_120_mean is identical to nll_1staction_120_mean,
+# and nll_1staction_hinoise_120_mean contains only zeros!!!
 gp_modelcomp_nll_lonoise <- ggplot(data = nll_yaoa_modelcomp_zerocost_top3, aes(x=age, y=nll_1staction_lonoise_120_mean, color=model, fill=model, group=model)) +        
   stat_summary(fun = mean, geom = "bar", position="dodge") + 
   stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
@@ -354,32 +367,30 @@ anova_nll_models_top3 <- aov_ez(id="ID", dv="nll_1staction_120_mean", nll_yaoa_m
                                                          within=c("model"), between = c("age"), print.formula=TRUE, include_aov=TRUE) #, observed=c("AgeGroup"))
 summary(anova_nll_models_top3)
 emmeans(anova_nll_models_top3, specs = pairwise ~ model|age)
-  petasq(anova_nll_models_top3, 'age')
+petasq(anova_nll_models_top3, 'age')
 petasq(anova_nll_models_top3, 'model')
 petasq(anova_nll_models_top3, 'age:model')
 
-
-anova_nll_models <- aov_ez(id="ID", dv="nll_1staction_120_mean", nll_yaoa_modelcomp_zerocost_top3, type="III", 
-                           within=c("model"), between = c("age"), print.formula=TRUE, include_aov=TRUE) #, observed=c("AgeGroup"))
-summary(anova_nll_models)
-emmeans(anova_nll_models, specs = pairwise ~ model|age)
-petasq(anova_nll_models, 'age')
-petasq(anova_nll_models, 'model')
-petasq(anova_nll_models, 'age:model')
 
 
 gp_modelcomp_bic <- ggplot(data =  nll_yaoa_modelcomp_zerocost_top3, aes(x=age, y=BIC_120_mean, color=model, fill=model, group=model)) +  
   stat_summary(fun = mean, geom = "bar", position="dodge") + 
   stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
-  scale_fill_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +
-  scale_color_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +  
-  annotate("text", x = 1.0, y = 152, label = '***', size=6) +  
-  geom_segment(aes(x=0.78, y=150, xend=1.22, yend=150), color='black', size=1) + 
-  annotate("text", x = 2.0, y = 142, label = '**', size=6) +  
-  geom_segment(aes(x=1.78, y=140, xend=2.22, yend=140), color='black', size=1) +   
+  scale_fill_manual(labels=c('Ignore high noise \n + discounting', 'Default \n','Uncertainty \n discounting'), values = myColors) +
+  scale_color_manual(labels=c('Ignore high noise \n + discounting', 'Default \n','Uncertainty \n discounting'), values = myColors) +  
+  annotate("text", x = 0.825, y = 152, label = '**', size=6) +  
+  geom_segment(aes(x=0.7, y=150, xend=0.95, yend=150), color='black', size=1) + 
+  annotate("text", x = 1.175, y = 152, label = '**', size=6) +  
+  geom_segment(aes(x=1.05, y=150, xend=1.3, yend=150), color='black', size=1) + 
+  annotate("text", x = 1.0, y = 165, label = 'n.s.', size=6) +  
+  geom_segment(aes(x=0.7, y=160, xend=1.3, yend=160), color='black', size=1) + 
+  annotate("text", x = 1.825, y = 142, label = '*', size=6) +  
+  geom_segment(aes(x=1.7, y=140, xend=1.95, yend=140), color='black', size=1) + 
+  annotate("text", x = 2.175, y = 142, label = '*', size=6) +  
+  geom_segment(aes(x=2.05, y=140, xend=2.3, yend=140), color='black', size=1) + 
+  annotate("text", x = 2.0, y = 155, label = 'n.s.', size=6) +  
+  geom_segment(aes(x=1.7, y=150, xend=2.3, yend=150), color='black', size=1) + 
   ylab("BIC") + xlab('Age group' ) +
-  #annotate("text", x = 1, y = 10500, label = as.character( round(df_elbo_comp$ELBO[df_elbo_comp$model=='default']) ), size=6) +  
-  #annotate("text", x = 2, y = 10800, label = as.character( round(df_elbo_comp$ELBO[df_elbo_comp$model=='nolearning']) ), size=6) +    
   theme(plot.title=element_text(hjust=0.5) ,
         axis.text.x = element_text(face="bold", size=14),
         axis.text.y = element_text(face="bold", size=14),
@@ -423,6 +434,12 @@ setnames(nll_yaoa_modelcomp_zerocost_top3_hinoise, old=c('BIC_hinoise_120_mean',
                                                    new=c('BIC_noise_120_mean', 'nll_1staction_noise_120_mean'))
 nll_yaoa_modelcomp_zerocost_top3_noise <- rbind(nll_yaoa_modelcomp_zerocost_top3_lonoise, nll_yaoa_modelcomp_zerocost_top3_hinoise)
 
+model_names <- unique(nll_yaoa_modelcomp_zerocost_top3_noise$model)
+
+anova_bic_noise_models_top2 <- aov_ez(id="ID", dv="BIC_noise_120_mean", subset(nll_yaoa_modelcomp_zerocost_top3_noise, model!=model_names[3]), type="III", 
+                                      within=c("model", "noise"), between = c("age"), print.formula=TRUE, include_aov=TRUE) #, observed=c("AgeGroup"))
+
+
 anova_bic_noise_models_top3 <- aov_ez(id="ID", dv="BIC_noise_120_mean", nll_yaoa_modelcomp_zerocost_top3_noise, type="III", 
                                         within=c("model", "noise"), between = c("age"), print.formula=TRUE, include_aov=TRUE) #, observed=c("AgeGroup"))
 summary(anova_bic_noise_models_top3)
@@ -430,17 +447,30 @@ emmeans(anova_bic_noise_models_top3, specs = pairwise ~ model|noise|age)
 emmeans(anova_bic_noise_models_top3, specs = pairwise ~ model|age)
 emmeans(anova_bic_noise_models_top3, specs = pairwise ~ model|noise)
 
-model_names <- unique(nll_yaoa_modelcomp_zerocost_top3_noise$model)
+
 #nll_yaoa_modelcomp_zerocost_top3_noise$bayes_factor <- NULL
 # The Bayes factor is the ratio of the model evidences (=probabilities of the data given the model).
 # NLL is the negative log-likelihood -> exp(-nll) gives the raw probabilities/model evidences.
 # As the ratios of proailities can be very large or very small, it is convienient to look at log(Bayes factor).
+
+# Default model (6) vs. noise discounting (9):
 setDT(nll_yaoa_modelcomp_zerocost_top3_noise)[model==model_names[1], log_bayes_factor := log((exp(-subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[2])$nll_1staction_noise_120_mean)
                                                                                       / exp(-subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1])$nll_1staction_noise_120_mean)))]
-
 nll_yaoa_modelcomp_zerocost_top3_noise$bayes_factor_logLik <- NULL
 setDT(nll_yaoa_modelcomp_zerocost_top3_noise)[model==model_names[1], bayes_factor_logLik := (subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1])$nll_1staction_noise_120_mean
                                                                                       - subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[2])$nll_1staction_noise_120_mean)]
+nll_yaoa_modelcomp_zerocost_top3_noise$delta_BIC <- NULL
+setDT(nll_yaoa_modelcomp_zerocost_top3_noise)[model==model_names[1], delta_BIC := (subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1])$BIC_noise_120_mean
+                                                                                             - subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[2])$BIC_noise_120_mean)]
+
+# Default model (6) vs. ignoring high noise (17):
+setDT(nll_yaoa_modelcomp_zerocost_top3_noise)[model==model_names[3], log_bayes_factor := log((exp(-subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[3])$nll_1staction_noise_120_mean)
+                                                                                              / exp(-subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1])$nll_1staction_noise_120_mean)))]
+setDT(nll_yaoa_modelcomp_zerocost_top3_noise)[model==model_names[3], bayes_factor_logLik := (subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1])$nll_1staction_noise_120_mean
+                                                                                             - subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[3])$nll_1staction_noise_120_mean)]
+setDT(nll_yaoa_modelcomp_zerocost_top3_noise)[model==model_names[3], delta_BIC := (subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1])$BIC_noise_120_mean
+                                                                                   - subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[3])$BIC_noise_120_mean)]
+
 
 
 gp_modelcomp_bf <- ggplot(data =  subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1]), aes(x=age, y=log_bayes_factor, color=noise, fill=noise, group=noise)) +  
@@ -459,12 +489,41 @@ plot(gp_modelcomp_bf)
 imageFile <- file.path(imageDirectory,"model_comparison_BayesFactor_YAOA_col_top3.png")
 ggsave(imageFile)
 
+gp_modelcomp_deltaBIC_default_vs_ignoreHinoise <- ggplot(data =  subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1]), aes(x=age, y=delta_BIC, color=noise, fill=noise, group=noise)) +  
+  stat_summary(fun = mean, geom = "bar", position="dodge") + 
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
+  scale_fill_manual(labels=c('High noise', 'Low noise'), values = myColors) +
+  scale_color_manual(labels=c('High noise', 'Low noise'), values = myColors) +  
+  ylab("Delta BIC \n (Ratio of model evidence)") + xlab('Age group' ) +
+  labs(title='Model comparison', subtitle='Values > 0 denote higher evidence for discounting') + 
+  theme(plot.title=element_text(hjust=0.5) ,
+        axis.text.x = element_text(face="bold", size=14),
+        axis.text.y = element_text(face="bold", size=14),
+        title=element_text(face = "bold", size = 16)) + # ,legend.position = 'none'
+  theme(legend.text = element_text(size = 20)) 
+plot(gp_modelcomp_deltaBIC_default_vs_ignoreHinoise)
+
+gp_modelcomp_deltaBIC_default_vs_ignoreHinoise_discount <- ggplot(data =  subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[3]), aes(x=age, y=delta_BIC, color=noise, fill=noise, group=noise)) +  
+  stat_summary(fun = mean, geom = "bar", position="dodge") + 
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
+  scale_fill_manual(labels=c('High noise', 'Low noise'), values = myColors) +
+  scale_color_manual(labels=c('High noise', 'Low noise'), values = myColors) +  
+  ylab("Delta BIC \n (Ratio of model evidence)") + xlab('Age group' ) +
+  labs(title='Model comparison', subtitle='Values > 0 denote higher evidence for discounting') + 
+  theme(plot.title=element_text(hjust=0.5) ,
+        axis.text.x = element_text(face="bold", size=14),
+        axis.text.y = element_text(face="bold", size=14),
+        title=element_text(face = "bold", size = 16)) + # ,legend.position = 'none'
+  theme(legend.text = element_text(size = 20)) 
+plot(gp_modelcomp_deltaBIC_default_vs_ignoreHinoise_discount)
+
 t.test(subset(nll_yaoa_modelcomp_zerocost_top3_noise, (model==model_names[1])*(age=='YA')*(noise=='high')==1)$log_bayes_factor)
 t.test(subset(nll_yaoa_modelcomp_zerocost_top3_noise, (model==model_names[1])*(age=='YA')*(noise=='low')==1)$log_bayes_factor)
 t.test(subset(nll_yaoa_modelcomp_zerocost_top3_noise, (model==model_names[1])*(age=='OA')*(noise=='high')==1)$log_bayes_factor)
 t.test(subset(nll_yaoa_modelcomp_zerocost_top3_noise, (model==model_names[1])*(age=='OA')*(noise=='low')==1)$log_bayes_factor)
 
-aggregate(nll_yaoa_modelcomp_zerocost_top3_noise$log_bayes_factor, list(nll_yaoa_modelcomp_zerocost_top3_noise$noise, nll_yaoa_modelcomp_zerocost_top3_noise$age), FUN=mean, na.rm=TRUE) 
+aggregate(nll_yaoa_modelcomp_zerocost_top3_noise$log_bayes_factor, list(nll_yaoa_modelcomp_zerocost_top3_noise$noise, nll_yaoa_modelcomp_zerocost_top3_noise$age), FUN=mean, na.rm=TRUE)
+aggregate(nll_yaoa_modelcomp_zerocost_top3_noise$delta_BIC, list(nll_yaoa_modelcomp_zerocost_top3_noise$noise, nll_yaoa_modelcomp_zerocost_top3_noise$age), FUN=mean, na.rm=TRUE)
 
 gp_modelcomp_bf_logLik <- ggplot(data =  subset(nll_yaoa_modelcomp_zerocost_top3_noise, model==model_names[1]), aes(x=age, y=bayes_factor_logLik, color=noise, fill=noise, group=noise)) +  
   stat_summary(fun = mean, geom = "bar", position="dodge") + 
@@ -483,30 +542,28 @@ plot(gp_modelcomp_bf_logLik)
 #ggpaired(nll_yaoa_modelcomp_zerocost_choice2, 
 #ggpaired(subset(nll_yaoa_modelcomp_zerocost_top3, age=='YA'),          
 ggpaired(subset(nll_yaoa_modelcomp_zerocost_top3, age=='OA'), 
-         x="model", y="nll_1staction_120_mean",
+         x="model", y="BIC_120_mean",
          color="age", id="ID", palette="npg")
 
 #ggpaired(nll_yaoa_modelcomp_zerocost_choice2, 
 #ggpaired(nll_yaoa_modelcomp_zerocost_top3,
 #ggpaired(subset(nll_yaoa_modelcomp_zerocost_top3, age=='YA'),                  
 ggpaired(subset(nll_yaoa_modelcomp_zerocost_top3, age=='OA'),          
-         x="model", y="nll_1staction_hinoise_120_mean",
+         x="model", y="BIC_hinoise_120_mean",
          color="age", id="ID", palette="npg")
 
 
 gp_modelcomp_bic_hinoise <- ggplot(data =  nll_yaoa_modelcomp_zerocost_top3, aes(x=age, y=BIC_hinoise_120_mean, color=model, fill=model, group=model)) +                             
   stat_summary(fun = mean, geom = "bar", position="dodge") + 
   stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
-  scale_fill_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +
-  scale_color_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +  
-  annotate("text", x = 1.0, y = 82, label = '**', size=6) +  
-  geom_segment(aes(x=0.78, y=80, xend=1.22, yend=80), color='black', size=1) + 
-  annotate("text", x = 2.0, y = 82, label = '***', size=6) +  
-  geom_segment(aes(x=1.78, y=80, xend=2.22, yend=80), color='black', size=1) +     
+  #scale_fill_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +
+  #scale_color_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +  
+  #annotate("text", x = 1.0, y = 82, label = '**', size=6) +  
+  #geom_segment(aes(x=0.78, y=80, xend=1.22, yend=80), color='black', size=1) + 
+  #annotate("text", x = 2.0, y = 82, label = '***', size=6) +  
+  #geom_segment(aes(x=1.78, y=80, xend=2.22, yend=80), color='black', size=1) +     
   ylab("BIC") + xlab('Age group' ) +
   labs(title = 'High noise') +  
-  #annotate("text", x = 1, y = 10500, label = as.character( round(df_elbo_comp$ELBO[df_elbo_comp$model=='default']) ), size=6) +  
-  #annotate("text", x = 2, y = 10800, label = as.character( round(df_elbo_comp$ELBO[df_elbo_comp$model=='nolearning']) ), size=6) +    
   theme(plot.title=element_text(hjust=0.5) ,
         axis.text.x = element_text(face="bold", size=14),
         axis.text.y = element_text(face="bold", size=14),
@@ -521,12 +578,12 @@ ggsave(imageFile)
 gp_modelcomp_bic_lonoise <- ggplot(data =  nll_yaoa_modelcomp_zerocost_top3, aes(x=age, y=BIC_lonoise_120_mean, color=model, fill=model, group=model)) +                             
   stat_summary(fun = mean, geom = "bar", position="dodge") + 
   stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
-  scale_fill_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +
-  scale_color_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +  
-  annotate("text", x = 1.0, y = 82, label = '**', size=6) +  
-  geom_segment(aes(x=0.78, y=80, xend=1.22, yend=80), color='black', size=1) + 
-  annotate("text", x = 2.0, y = 83, label = 'n.s.', size=6) +  
-  geom_segment(aes(x=1.78, y=80, xend=2.22, yend=80), color='black', size=1) +     
+  #scale_fill_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +
+  #scale_color_manual(labels=c('Default \n','Uncertainty \n discounting'), values = myColors) +  
+  #annotate("text", x = 1.0, y = 82, label = '**', size=6) +  
+  #geom_segment(aes(x=0.78, y=80, xend=1.22, yend=80), color='black', size=1) + 
+  #annotate("text", x = 2.0, y = 83, label = 'n.s.', size=6) +  
+  #geom_segment(aes(x=1.78, y=80, xend=2.22, yend=80), color='black', size=1) +     
   ylab("BIC") + xlab('Age group' ) +
   labs(title = 'Low noise') +  
   #annotate("text", x = 1, y = 10500, label = as.character( round(df_elbo_comp$ELBO[df_elbo_comp$model=='default']) ), size=6) +  

@@ -33,10 +33,15 @@ elbo_oa_hilonoisedisc_0cost_theta <- read.csv('Results_inference_group_discount_
 #elbo_oa_hilonoisedisc_0cost_theta <- read.csv('Results_discount_hiLoNoise_theta_ignoreHinoise/ELBO_oa_group_discount_hiLoNoise_theta_0cost_ignoreHiNoise.csv')
 
 
-nll_ya_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/NLL_ya_group_nonlearning_0cost.csv')
-nll_oa_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/NLL_oa_group_nonlearning_0cost.csv')
-elbo_ya_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/ELBO_ya_group_nonlearning_0cost.csv')
-elbo_oa_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/ELBO_oa_group_nonlearning_0cost.csv')
+#nll_ya_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/NLL_ya_group_nonlearning_0cost.csv')
+#nll_oa_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/NLL_oa_group_nonlearning_0cost.csv')
+#elbo_ya_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/ELBO_ya_group_nonlearning_0cost.csv')
+#elbo_oa_nolearning_0cost <- read.csv('Results_inference_nonlearning_20220919/ELBO_oa_group_nonlearning_0cost.csv')
+nll_ya_nolearning_0cost <- read.csv('Results_nonlearning_IDs/NLL_ya_group_nonlearning_IDs.csv')
+nll_oa_nolearning_0cost <- read.csv('Results_nonlearning_IDs/NLL_oa_group_nonlearning_IDs.csv')
+elbo_ya_nolearning_0cost <- read.csv('Results_nonlearning_IDs/ELBO_ya_group_nonlearning_IDs.csv')
+elbo_oa_nolearning_0cost <- read.csv('Results_nonlearning_IDs/ELBO_oa_group_nonlearning_IDs.csv')
+
 
 nll_ya_noisedisc_theta_ignoreHinoise <- read.csv('Results_discount_Noise_theta_ignoreHinoise/NLL_ya_group_discount_Noise_theta_0cost_ignoreHinoise.csv')
 nll_oa_noisedisc_theta_ignoreHinoise <- read.csv('Results_discount_Noise_theta_ignoreHinoise/NLL_oa_group_discount_Noise_theta_0cost_ignoreHinoise.csv')
@@ -73,6 +78,11 @@ nll_oa_anchorpruning_discount_hilonoise_theta <- read.csv('Results_anchor_prunin
 elbo_ya_anchorpruning_discount_hilonoise_theta <- read.csv('Results_anchor_pruning_discount_hiLoNoise_theta/ELBO_ya_group_anchor_pruning_discount_hiLoNoise_theta.csv')
 elbo_oa_anchorpruning_discount_hilonoise_theta <- read.csv('Results_anchor_pruning_discount_hiLoNoise_theta/ELBO_oa_group_anchor_pruning_discount_hiLoNoise_theta.csv')
 
+nll_ya_discount_noise_theta_realprobs <- read.csv('Results_discount_Noise_theta_realprobs/NLL_ya_group_discount_Noise_theta_realprobs.csv')
+nll_oa_discount_noise_theta_realprobs <- read.csv('Results_discount_Noise_theta_realprobs/NLL_oa_group_discount_Noise_theta_realprobs.csv')
+elbo_ya_discount_noise_theta_realprobs <- read.csv('Results_discount_Noise_theta_realprobs/ELBO_ya_group_discount_Noise_theta_realprobs.csv')
+elbo_oa_discount_noise_theta_realprobs <- read.csv('Results_discount_Noise_theta_realprobs/ELBO_oa_group_discount_Noise_theta_realprobs.csv')
+
 
 
 print(c('ELBO YA default zero cost:', tail(elbo_ya_default_0cost$X0, 1)))
@@ -86,6 +96,7 @@ print(c('ELBO YA anchor pruning:', tail(elbo_ya_anchorpruning$X0, 1)))
 print(c('ELBO YA anchor pruning noisedisc theta:', tail(elbo_ya_anchorpruning_discount_noise_theta$X0, 1)))
 print(c('ELBO YA noisedisc theta learn probs:', tail(elbo_ya_discount_noise_theta_learnprobs$X0, 1)))
 print(c('ELBO YA hiLo noisedisc theta real probs:', tail(elbo_ya_discount_hilonoise_theta_realprobs$X0, 1)))
+print(c('ELBO YA noisedisc theta real probs:', tail(elbo_ya_discount_noise_theta_realprobs$X0, 1)))
 print(c('ELBO YA anchor pruning hi+Lo noisedisc theta:', tail(elbo_ya_anchorpruning_discount_hilonoise_theta$X0, 1)))
 
 #df_elbo <- as.data.frame(c(elbo_ya[1000,]$X0, elbo_ya_nolearning[1000,]$X0))
@@ -102,6 +113,7 @@ print(c('ELBO OA anchor pruning:', tail(elbo_oa_anchorpruning$X0, 1)))
 print(c('ELBO OA anchor pruning noisedisc theta:', tail(elbo_oa_anchorpruning_discount_noise_theta$X0, 1)))
 print(c('ELBO OA noisedisc theta learn probs:', tail(elbo_oa_discount_noise_theta_learnprobs$X0, 1)))
 print(c('ELBO OA hiLo noisedisc theta real probs:', tail(elbo_oa_discount_hilonoise_theta_realprobs$X0, 1)))
+print(c('ELBO OA noisedisc theta real probs:', tail(elbo_oa_discount_noise_theta_realprobs$X0, 1)))
 print(c('ELBO OA anchor pruning hi+Lo noisedisc theta:', tail(elbo_oa_anchorpruning_discount_hilonoise_theta$X0, 1)))
 
 nll_ya_default_0cost$model <- NULL
@@ -135,14 +147,14 @@ nll_ya_hilonoisedisc_0cost_theta$model <- NULL
 nll_ya_hilonoisedisc_0cost_theta$model <- "10-hiLoNoisedisc_zerocost_theta"
 nll_ya_hilonoisedisc_0cost_theta$age <- NULL
 nll_ya_hilonoisedisc_0cost_theta$age <- "YA"
-#nll_ya_hilonoisedisc_0cost_theta$ID <- NULL
-#nll_ya_hilonoisedisc_0cost_theta$ID <- paste('YA', nll_ya_hilonoisedisc_0cost_theta$X, sep="")
+nll_ya_hilonoisedisc_0cost_theta$ID <- NULL
+nll_ya_hilonoisedisc_0cost_theta$ID <- paste('YA', nll_ya_hilonoisedisc_0cost_theta$X, sep="")
 nll_oa_hilonoisedisc_0cost_theta$model <- NULL
 nll_oa_hilonoisedisc_0cost_theta$model <- "10-hiLoNoisedisc_zerocost_theta"
 nll_oa_hilonoisedisc_0cost_theta$age <- NULL
 nll_oa_hilonoisedisc_0cost_theta$age <- "OA"
-#nll_oa_hilonoisedisc_0cost_theta$ID <- NULL
-#nll_oa_hilonoisedisc_0cost_theta$ID <- paste('OA', nll_oa_hilonoisedisc_0cost_theta$X, sep="")
+nll_oa_hilonoisedisc_0cost_theta$ID <- NULL
+nll_oa_hilonoisedisc_0cost_theta$ID <- paste('OA', nll_oa_hilonoisedisc_0cost_theta$X, sep="")
 
 
 nll_ya_nolearning_0cost$model <- NULL
@@ -241,6 +253,15 @@ nll_oa_anchorpruning_discount_hilonoise_theta$model <- NULL
 nll_oa_anchorpruning_discount_hilonoise_theta$model <- "23-anchor-pruning-discount-hiLonoise-theta"
 nll_oa_anchorpruning_discount_hilonoise_theta$age <- NULL
 nll_oa_anchorpruning_discount_hilonoise_theta$age <- 'OA'
+
+nll_ya_discount_noise_theta_realprobs$model <- NULL
+nll_ya_discount_noise_theta_realprobs$model <- "26-discount-noise-theta-real-probs"
+nll_ya_discount_noise_theta_realprobs$age <- NULL
+nll_ya_discount_noise_theta_realprobs$age <- "YA"
+nll_oa_discount_noise_theta_realprobs$model <- NULL
+nll_oa_discount_noise_theta_realprobs$model <- "26-discount-noise-theta-real-probs"
+nll_oa_discount_noise_theta_realprobs$age <- NULL
+nll_oa_discount_noise_theta_realprobs$age <- "OA"
 
 elbo_ya_default_0cost$age <- NULL 
 elbo_ya_default_0cost$age <- "YA"
@@ -384,27 +405,47 @@ df_elbo_comp_systematic <- rbind(def_elbo_yaoa_default_0cost,
                                  df_elbo_yaoa_anchorpruning_discount_hilonoise_theta)
 
 
+df_elbo_comp_all <- rbind(def_elbo_yaoa_default_0cost, # 6
+                          elbo_yaoa_noisedisc_0cost_theta, # 9 
+                          elbo_yaoa_hilonoisedisc_0cost_theta, # 10
+                          df_elbo_noisedisc_theta_ignoreHinoise, # 17
+                          df_elbo_hilonoisedisc_theta_ignoreHinoise, # 18
+                          df_elbo_yaoa_anchorpruning, # 19
+                          df_elbo_yaoa_anchorpruning_discount_noise_theta, # 20
+                          df_elbo_yaoa_discount_noise_theta_learnprobs, # 21
+                          df_elbo_yaoa_discount_hilonoise_theta_realprobs, # 22
+                          df_elbo_yaoa_anchorpruning_discount_hilonoise_theta # 23
+                          )
+
 nll_yaoa_default_0cost <- rbind(nll_ya_default_0cost, nll_oa_default_0cost) # BIC correctly computed for 3 parameters (beta, theta, alpha)
 nll_yaoa_noisedisc_0cost_theta <- rbind(nll_ya_noisedisc_0cost_theta, nll_oa_noisedisc_0cost_theta)
-nll_yaoa_hilonoisedisc_0cost_theta <- rbind(nll_ya_hilonoisedisc_0cost_theta, nll_oa_hilonoisedisc_0cost_theta)
+nll_yaoa_hilonoisedisc_0cost_theta <- rbind(nll_ya_hilonoisedisc_0cost_theta, nll_oa_hilonoisedisc_0cost_theta)  
 nll_yaoa_nolearning_0cost <- rbind(nll_ya_nolearning_0cost, nll_oa_nolearning_0cost)# BIC correctly computed for 2 parameters (beta, theta)
 nll_yaoa_noisedisc_theta_ignoreHinoise <- rbind(nll_ya_noisedisc_theta_ignoreHinoise, nll_oa_noisedisc_theta_ignoreHinoise)
 nll_yaoa_anchorpruning <- rbind(nll_ya_anchorpruning, nll_oa_anchorpruning)
 nll_yaoa_anchorpruning_discount_noise_theta <- rbind(nll_ya_anchorpruning_discount_noise_theta, nll_oa_anchorpruning_discount_noise_theta)
 nll_yaoa_discount_noise_theta_learnprobs <- rbind(nll_ya_discount_noise_theta_learnprobs, nll_oa_discount_noise_theta_learnprobs)
 nll_yaoa_discount_hilonoise_theta_realprobs <- rbind(nll_ya_discount_hilonoise_theta_realprobs, nll_oa_discount_hilonoise_theta_realprobs)
+nll_yaoa_discount_noise_theta_realprobs <- rbind(nll_ya_discount_noise_theta_realprobs, nll_oa_discount_noise_theta_realprobs)
 nll_yaoa_anchorpruning_discount_hilonoise_theta <- rbind(nll_ya_anchorpruning_discount_hilonoise_theta, nll_oa_anchorpruning_discount_hilonoise_theta)
+nll_yaoa_hilonoisedisc_theta_ignoreHinoise <- rbind(nll_ya_hilonoisedisc_theta_ignoreHinoise, nll_oa_hilonoisedisc_theta_ignoreHinoise)
+
 
 nll_yaoa_noisedisc_0cost_theta$BIC_120_mean         <- nll_yaoa_noisedisc_0cost_theta$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
 nll_yaoa_noisedisc_0cost_theta$BIC_hinoise_120_mean <- nll_yaoa_noisedisc_0cost_theta$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
 nll_yaoa_noisedisc_0cost_theta$BIC_lonoise_120_mean <- nll_yaoa_noisedisc_0cost_theta$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
-nll_yaoa_hilonoisedisc_0cost_theta$BIC_120_mean         <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
-nll_yaoa_hilonoisedisc_0cost_theta$BIC_hinoise_120_mean <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
-nll_yaoa_hilonoisedisc_0cost_theta$BIC_lonoise_120_mean <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_hilonoisedisc_0cost_theta$BIC_120_mean         <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_120_mean #- log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_hilonoisedisc_0cost_theta$BIC_hinoise_120_mean <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_hinoise_120_mean # - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
+nll_yaoa_hilonoisedisc_0cost_theta$BIC_lonoise_120_mean <- nll_yaoa_hilonoisedisc_0cost_theta$BIC_lonoise_120_mean # - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
 nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_120_mean         <- nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
 nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_hinoise_120_mean <- nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
 nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_lonoise_120_mean <- nll_yaoa_noisedisc_theta_ignoreHinoise$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
-
+nll_yaoa_discount_noise_theta_learnprobs$BIC_120_mean <- nll_yaoa_discount_noise_theta_learnprobs$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 5 params, not 4
+nll_yaoa_discount_noise_theta_learnprobs$BIC_hinoise_120_mean <- nll_yaoa_discount_noise_theta_learnprobs$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 5 params, not 4
+nll_yaoa_discount_noise_theta_learnprobs$BIC_lonoise_120_mean <- nll_yaoa_discount_noise_theta_learnprobs$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 5 params, not 4
+nll_yaoa_discount_noise_theta_realprobs$BIC_120_mean <- nll_yaoa_discount_noise_theta_realprobs$BIC_120_mean - log(120) # Error in the python script - stored BIC values computed for 5 params, not 4
+nll_yaoa_discount_noise_theta_realprobs$BIC_hinoise_120_mean <- nll_yaoa_discount_noise_theta_realprobs$BIC_hinoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 5 params, not 4
+nll_yaoa_discount_noise_theta_realprobs$BIC_lonoise_120_mean <- nll_yaoa_discount_noise_theta_realprobs$BIC_lonoise_120_mean - log(120) # Error in the python script - stored BIC values computed for 4 params, not 3
 
 nll_yaoa_default_0cost$subjIDs <- NULL
 nll_yaoa_noisedisc_0cost_theta$subjIDs <- NULL
@@ -416,6 +457,8 @@ nll_yaoa_anchorpruning$subjIDs <- NULL
 nll_yaoa_anchorpruning_discount_noise_theta$subjIDs <- NULL
 nll_yaoa_discount_noise_theta_learnprobs$subjIDs <- NULL
 nll_yaoa_discount_hilonoise_theta_realprobs$subjIDs <- NULL
+
+#nll_yaoa_anchorpruning_discount_hilonoise_theta
 
 nll_yaoa_modelcomp_zerocost_top3 <- rbind(nll_yaoa_default_0cost, nll_yaoa_noisedisc_0cost_theta, nll_yaoa_noisedisc_theta_ignoreHinoise)
 
@@ -435,7 +478,25 @@ nll_yaoa_comp_systematic <- rbind(nll_yaoa_default_0cost,
                                  nll_yaoa_discount_hilonoise_theta_realprobs,
                                  nll_yaoa_anchorpruning_discount_hilonoise_theta)
 
+nll_yaoa_comp_systematic$n_params <- NULL
+nll_yaoa_comp_systematic$n_params <- (nll_yaoa_comp_systematic$BIC_120_mean - 2*nll_yaoa_comp_systematic$nll_1staction_120_mean) /log(120)
+aggregate(nll_yaoa_comp_systematic$n_params, list(nll_yaoa_comp_systematic$model), FUN=mean, na.rm=TRUE) 
 
+nll_yaoa_comp_all <- rbind(nll_yaoa_default_0cost, # 6
+                          nll_yaoa_noisedisc_0cost_theta, # 9 
+                          nll_yaoa_hilonoisedisc_0cost_theta, # 10
+                          nll_yaoa_noisedisc_theta_ignoreHinoise, # 17
+                          nll_yaoa_hilonoisedisc_theta_ignoreHinoise, # 18
+                          nll_yaoa_anchorpruning, # 19
+                          nll_yaoa_anchorpruning_discount_noise_theta, # 20
+                          nll_yaoa_discount_noise_theta_learnprobs, # 21
+                          nll_yaoa_discount_hilonoise_theta_realprobs, # 22
+                          nll_yaoa_discount_noise_theta_realprobs,                          
+                          nll_yaoa_anchorpruning_discount_hilonoise_theta # 23
+)
+nll_yaoa_comp_all$n_params <- NULL
+nll_yaoa_comp_all$n_params <- (nll_yaoa_comp_all$BIC_120_mean - 2*nll_yaoa_comp_all$nll_1staction_120_mean) /log(120)
+aggregate(nll_yaoa_comp_all$n_params, list(nll_yaoa_comp_all$model), FUN=mean, na.rm=TRUE) 
 
 library(scales)
 myColors <- hue_pal()(11) #extract hex color codes for a plot with five elements in ggplot2 
@@ -558,12 +619,38 @@ df_discount_hilonoise_theta_realprobs_hinoise$noise <- 'high'
 df_discount_hilonoise_theta_realprobs_lonoise <- select(nll_yaoa_discount_hilonoise_theta_realprobs, BIC_lonoise_120_mean, pseudo_Rsquare_1staction_lonoise_120_mean, model, age, ID)
 df_discount_hilonoise_theta_realprobs_lonoise$noise <- NULL
 df_discount_hilonoise_theta_realprobs_lonoise$noise <- 'low'
-setnames(df_discount_noise_theta_learnprobs_hinoise, old=c("BIC_hinoise_120_mean","pseudo_Rsquare_1staction_hinoise_120_mean"), 
+setnames(df_discount_hilonoise_theta_realprobs_hinoise, old=c("BIC_hinoise_120_mean","pseudo_Rsquare_1staction_hinoise_120_mean"), 
          new=c("BIC_noise_120_mean", "pseudo_Rsquare_1staction_noise_120_mean"), skip_absent=TRUE)
-setnames(df_discount_noise_theta_learnprobs_lonoise, old=c("BIC_lonoise_120_mean","pseudo_Rsquare_1staction_lonoise_120_mean"), 
+setnames(df_discount_hilonoise_theta_realprobs_hinoise, old=c("BIC_lonoise_120_mean","pseudo_Rsquare_1staction_lonoise_120_mean"), 
          new=c("BIC_noise_120_mean", "pseudo_Rsquare_1staction_noise_120_mean"), skip_absent=TRUE)
-df_discount_noise_theta_learnprobs_noise <- rbind(df_discount_noise_theta_learnprobs_hinoise,
-                                                  df_discount_noise_theta_learnprobs_lonoise)
+df_discount_hilonoise_theta_realprobs_noise <- rbind(df_discount_hilonoise_theta_realprobs_hinoise,
+                                                  df_discount_hilonoise_theta_realprobs_hinoise)
+
+df_discount_noise_theta_realprobs_hinoise <- select(nll_yaoa_discount_noise_theta_realprobs, BIC_hinoise_120_mean, pseudo_Rsquare_1staction_hinoise_120_mean, model, age, ID)
+df_discount_noise_theta_realprobs_hinoise$noise <- NULL
+df_discount_noise_theta_realprobs_hinoise$noise <- 'high'
+df_discount_noise_theta_realprobs_lonoise <- select(nll_yaoa_discount_noise_theta_realprobs, BIC_lonoise_120_mean, pseudo_Rsquare_1staction_lonoise_120_mean, model, age, ID)
+df_discount_noise_theta_realprobs_lonoise$noise <- NULL
+df_discount_noise_theta_realprobs_lonoise$noise <- 'low'
+setnames(df_discount_noise_theta_realprobs_hinoise, old=c("BIC_hinoise_120_mean","pseudo_Rsquare_1staction_hinoise_120_mean"), 
+         new=c("BIC_noise_120_mean", "pseudo_Rsquare_1staction_noise_120_mean"), skip_absent=TRUE)
+setnames(df_discount_noise_theta_realprobs_hinoise, old=c("BIC_lonoise_120_mean","pseudo_Rsquare_1staction_lonoise_120_mean"), 
+         new=c("BIC_noise_120_mean", "pseudo_Rsquare_1staction_noise_120_mean"), skip_absent=TRUE)
+df_discount_noise_theta_realprobs_noise <- rbind(df_discount_noise_theta_realprobs_hinoise,
+                                                     df_discount_noise_theta_realprobs_hinoise)
+
+
+df_anchorpruning_hinoise_discount_hilonoise_theta <- select(nll_yaoa_anchorpruning_discount_hilonoise_theta, BIC_hinoise_120_mean, pseudo_Rsquare_1staction_hinoise_120_mean, model, age, ID)
+df_anchorpruning_hinoise_discount_hilonoise_theta$noise <- NULL
+df_anchorpruning_hinoise_discount_hilonoise_theta$noise <- 'high'
+df_anchorpruning_lonoise_discount_hilonoise_theta <- select(nll_yaoa_anchorpruning_discount_hilonoise_theta, BIC_lonoise_120_mean, pseudo_Rsquare_1staction_lonoise_120_mean, model, age, ID)
+df_anchorpruning_lonoise_discount_hilonoise_theta$noise <- NULL
+df_anchorpruning_lonoise_discount_hilonoise_theta$noise <- 'low'
+setnames(df_anchorpruning_hinoise_discount_hilonoise_theta, old=c("BIC_hinoise_120_mean","pseudo_Rsquare_1staction_hinoise_120_mean"), 
+         new=c("BIC_noise_120_mean", "pseudo_Rsquare_1staction_noise_120_mean"))
+setnames(df_anchorpruning_lonoise_discount_hilonoise_theta, old=c("BIC_lonoise_120_mean","pseudo_Rsquare_1staction_lonoise_120_mean"), 
+         new=c("BIC_noise_120_mean", "pseudo_Rsquare_1staction_noise_120_mean"))
+df_anchorpruning_hilonoise <- rbind(df_anchorpruning_hinoise_discount_hilonoise_theta, df_anchorpruning_lonoise_discount_hilonoise_theta)
 
 
 
@@ -573,8 +660,8 @@ df_discount_noise_theta_learnprobs_noise <- rbind(df_discount_noise_theta_learnp
 gp_modelcomp_nll <- ggplot(data = nll_yaoa_comp_systematic, aes(x=age, y=nll_1staction_120_mean, color=model, fill=model, group=model)) +    
   stat_summary(fun = mean, geom = "bar", position="dodge") + 
   stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
-  scale_fill_manual(values = myColors) +
-  scale_color_manual(values = myColors) +  
+  #scale_fill_manual(values = myColors) +
+  #scale_color_manual(values = myColors) +  
   #geom_segment(aes(x=0.7, y=67, xend=1.0, yend=67), color='black', size=1) + 
   #annotate("text", x = 0.85, y = 69, label = '*', size=6) +  
   #geom_segment(aes(x=0.7, y=72, xend=1.3, yend=72), color='black', size=1) + 
@@ -617,13 +704,15 @@ ggsave(imageFile)
 aggregate(nll_yaoa_modelcomp_zerocost_top3$BIC_120_mean, list(nll_yaoa_modelcomp_zerocost_top3$model, nll_yaoa_modelcomp_zerocost_top3$age), FUN=mean, na.rm=TRUE)
 aggregate(nll_yaoa_comp_systematic$BIC_120_mean, list(nll_yaoa_comp_systematic$model, nll_yaoa_comp_systematic$age), FUN=mean, na.rm=TRUE) 
 
+
+
 #gp_modelcomp_nll_hinoise <- ggplot(data = nll_yaoa_modelcomp_5models, aes(x=age, y=nll_1staction_hinoise_120_mean, color=model, fill=model, group=model)) +
 #gp_modelcomp_nll_hinoise <- ggplot(data = nll_yaoa_modelcomp_zerocost_top3, aes(x=age, y=nll_1staction_hinoise_120_mean, color=model, fill=model, group=model)) +
 gp_modelcomp_nll_hinoise <- ggplot(data = nll_yaoa_comp_systematic, aes(x=age, y=nll_1staction_hinoise_120_mean, color=model, fill=model, group=model)) +        
   stat_summary(fun = mean, geom = "bar", position="dodge") + 
   stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
-  scale_fill_manual(values = myColors) +
-  scale_color_manual(values = myColors) +  
+  #scale_fill_manual(values = myColors) +
+  #scale_color_manual(values = myColors) +  
   ylab("NLL") + xlab('Age group' ) +
   #geom_segment(aes(x=1.78, y=140, xend=2.22, yend=140), color='black', size=1) + 
   #annotate("text", x = 2.0, y = 142, label = '**', size=6) +    
@@ -638,13 +727,13 @@ plot(gp_modelcomp_nll_hinoise)
 imageFile <- file.path(imageDirectory,"model_comparison_NLL_zerocost_YAOA_systematic_hinoise.png")
 ggsave(imageFile)
 
-anova_nll_models_top3 <- aov_ez(id="ID", dv="nll_1staction_120_mean", nll_yaoa_modelcomp_zerocost_top3, type="III", 
-                                                         within=c("model"), between = c("age"), print.formula=TRUE, include_aov=TRUE) #, observed=c("AgeGroup"))
-summary(anova_nll_models_top3)
-emmeans(anova_nll_models_top3, specs = pairwise ~ model|age)
-petasq(anova_nll_models_top3, 'age')
-petasq(anova_nll_models_top3, 'model')
-petasq(anova_nll_models_top3, 'age:model')
+#anova_nll_models_top3 <- aov_ez(id="ID", dv="nll_1staction_120_mean", nll_yaoa_modelcomp_zerocost_top3, type="III", 
+#                                                         within=c("model"), between = c("age"), print.formula=TRUE, include_aov=TRUE) #, observed=c("AgeGroup"))
+#summary(anova_nll_models_top3)
+#emmeans(anova_nll_models_top3, specs = pairwise ~ model|age)
+#petasq(anova_nll_models_top3, 'age')
+#petasq(anova_nll_models_top3, 'model')
+#petasq(anova_nll_models_top3, 'age:model')
 
 
 
@@ -690,7 +779,65 @@ ggsave(imageFile)
 # Output mean values:
 #aggregate(nll_yaoa_modelcomp_5models$BIC_120_mean, list(nll_yaoa_modelcomp_5models$model, nll_yaoa_modelcomp_5models$age), FUN=mean, na.rm=TRUE) 
 aggregate(nll_yaoa_comp_systematic$BIC_120_mean, list(nll_yaoa_comp_systematic$model, nll_yaoa_comp_systematic$age), FUN=mean, na.rm=TRUE) 
+aggregate(nll_yaoa_comp_all$BIC_120_mean, list(nll_yaoa_comp_all$model, nll_yaoa_comp_all$age), FUN=mean, na.rm=TRUE) 
 
+
+
+
+gp_modelcomp_bic_all <- ggplot(data =  nll_yaoa_comp_all, aes(x=age, y=BIC_120_mean, color=model, fill=model, group=model)) +    
+  stat_summary(fun = mean, geom = "bar", position="dodge") + 
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
+  #scale_fill_manual(labels=c('Ignore high noise \n + discounting', 'Default \n','Uncertainty \n discounting'), values = myColors) +
+  #scale_color_manual(labels=c('Ignore high noise \n + discounting', 'Default \n','Uncertainty \n discounting'), values = myColors) +  
+  #scale_fill_manual(labels=c('Anchor pruning', 
+  #                           'Anchor pruning \n discounting',
+  #                           'Discounting \n learned probs.',
+  #                           'Default model',
+  #                           'Discounting \n ignore high noise'), values = myColors) +
+  #scale_color_manual(labels=c('Anchor pruning', 
+  #                            'Anchor pruning \n discounting',
+  #                            'Discounting \n learned probs.',
+  #                            'Default model',
+#                            'Discounting \n ignore high noise'), values = myColors) +  
+ylab("BIC") + xlab('Age group' ) +
+  theme(plot.title=element_text(hjust=0.5) ,
+        axis.text.x = element_text(face="bold", size=14),
+        axis.text.y = element_text(face="bold", size=14),
+        title=element_text(face = "bold", size = 16)) + # ,legend.position = 'none'
+  theme(legend.text = element_text(size = 20)) 
+plot(gp_modelcomp_bic_all)
+imageFile <- file.path(imageDirectory,"model_comparison_BIC_zerocost_YAOA_col_all.png")
+ggsave(imageFile)
+
+gp_modelcomp_bic_hinoise_all <- ggplot(data =  nll_yaoa_comp_all, aes(x=age, y=BIC_hinoise_120_mean, color=model, fill=model, group=model)) +    
+  stat_summary(fun = mean, geom = "bar", position="dodge") + 
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
+  labs(title = 'High noise') +
+  ylab("BIC") + xlab('Age group' ) +
+  theme(plot.title=element_text(hjust=0.5) ,
+        axis.text.x = element_text(face="bold", size=14),
+        axis.text.y = element_text(face="bold", size=14),
+        title=element_text(face = "bold", size = 16)) + # ,legend.position = 'none'
+  theme(legend.text = element_text(size = 20)) +
+  coord_cartesian(ylim = c(0, 80)) 
+plot(gp_modelcomp_bic_hinoise_all)
+imageFile <- file.path(imageDirectory,"model_comparison_BIC_hinoise_YAOA_col_all.png")
+ggsave(imageFile)
+
+gp_modelcomp_bic_lonoise_all <- ggplot(data =  nll_yaoa_comp_all, aes(x=age, y=BIC_lonoise_120_mean, color=model, fill=model, group=model)) +    
+  stat_summary(fun = mean, geom = "bar", position="dodge") + 
+  stat_summary(fun.data = mean_cl_boot, geom = "errorbar", position = position_dodge(width = 0.90), width = 0.2, color='black') +   
+  labs(title = 'Low noise') +
+  ylab("BIC") + xlab('Age group' ) +
+  theme(plot.title=element_text(hjust=0.5) ,
+        axis.text.x = element_text(face="bold", size=14),
+        axis.text.y = element_text(face="bold", size=14),
+        title=element_text(face = "bold", size = 16)) + # ,legend.position = 'none'
+  theme(legend.text = element_text(size = 20)) +
+  coord_cartesian(ylim = c(0, 80)) 
+plot(gp_modelcomp_bic_lonoise_all)
+imageFile <- file.path(imageDirectory,"model_comparison_BIC_lonoise_YAOA_col_all.png")
+ggsave(imageFile)
 
 
 anova_bic_models_top3 <- aov_ez(id="ID", dv="BIC_120_mean", nll_yaoa_modelcomp_zerocost_top3, type="III", 
